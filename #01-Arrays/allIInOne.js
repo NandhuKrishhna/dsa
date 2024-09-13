@@ -46,3 +46,23 @@ function quickSort(arr, prop) {
   let k = 5;
   console.log(countSubarraysWithSumK(arr, k)); // 2 ([2,3] and [5])
   
+
+  function generateSubsequences(arr, index = 0, subseq = []) {
+    if (index === arr.length) {
+      if (subseq.length > 0) console.log(subseq);
+      return;
+    }
+  
+    // Include the current element in subsequence
+    subseq.push(arr[index]);
+    generateSubsequences(arr, index + 1, subseq);
+    
+    // Exclude the current element and proceed
+    subseq.pop();
+    generateSubsequences(arr, index + 1, subseq);
+  }
+  
+  let arr = [1, 2, 3];
+  generateSubsequences(arr); 
+  // Output: [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3]
+  
