@@ -65,29 +65,29 @@
 
 
 //   let arr = [1, 2, 3];
-  generateSubsequences(arr); 
-  // Output: [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3]
-  function maxLenEqualZeroOne(arr) {
-    let sum = 0;
-    let maxLen = 0;
-    let hashMap = {};
+//   generateSubsequences(arr); 
+//   // Output: [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3]
+//   function maxLenEqualZeroOne(arr) {
+//     let sum = 0;
+//     let maxLen = 0;
+//     let hashMap = {};
     
-    for (let i = 0; i < arr.length; i++) {
-      sum += arr[i] === 0 ? -1 : 1;
+//     for (let i = 0; i < arr.length; i++) {
+//       sum += arr[i] === 0 ? -1 : 1;
       
-      if (sum === 0) {
-        maxLen = i + 1;
-      }
+//       if (sum === 0) {
+//         maxLen = i + 1;
+//       }
       
-      if (hashMap[sum] !== undefined) {
-        maxLen = Math.max(maxLen, i - hashMap[sum]);
-      } else {
-        hashMap[sum] = i;
-      }
-    }
-    return maxLen;
-  }
+//       if (hashMap[sum] !== undefined) {
+//         maxLen = Math.max(maxLen, i - hashMap[sum]);
+//       } else {
+//         hashMap[sum] = i;
+//       }
+//     }
+//     return maxLen;
+//   }
   
-  let arr = [0, 1, 0, 1, 1, 0, 0];
-  console.log(maxLenEqualZeroOne(arr)); 
+//   let arr = [0, 1, 0, 1, 1, 0, 0];
+//   console.log(maxLenEqualZeroOne(arr)); 
   
