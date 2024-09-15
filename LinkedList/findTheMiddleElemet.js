@@ -39,3 +39,5 @@ list.addList(34);
 list.addList(36);
 list.addList(36);
 console.log(list.findtheMid());
+//----------------------------------------------------
+
