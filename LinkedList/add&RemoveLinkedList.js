@@ -66,8 +66,42 @@ class LinkedList{
      
 
     }
+   //Removing
+    removeFromStart(){
+        if(!this.head){
+            return console.error("Nothing to remove");
+            
+        }
+        this.head = this.head.next;
 
-  
+    }
+    removeFromEnd(){
+        if (!this.head) {
+            return;
+          }
+
+          let current = this.head;
+          while(current.next.next){
+            current = current.next;
+          }
+          current.next = null;
+    }
+   removeFromIndex(index){
+    if(index<0 || index>this.size()){
+      return console.error("Invalid Index");
+      
+    }
+
+    if(index === 0 ){
+    this.head = this.head.next;
+    }
+
+   let current = this.head;
+   for (let i = 0; i < index-1; i++) {
+        current = current.next
+   }
+    current.next = current.next.next
+   }
     //printing the values
   printList(){
     let current = this.head;
@@ -87,4 +121,7 @@ list.addListAtEnd(99)
 list.addList(66);
 list.addList(77);
 list.addAtAny(2,18)
+list.removeFromStart()
+list.removeFromEnd()
+list.removeFromIndex(0)
 list.printList()
