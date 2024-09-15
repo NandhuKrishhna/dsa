@@ -57,4 +57,5 @@ class LinkedList {
 const list = new LinkedList()
 list.convertArrayToLinkedList(arr)
 list.convertArraytoLinked1(nums)
+// console.log(list);
 list.printList()
