@@ -32,7 +32,8 @@ class LinkedList {
             slow = slow.next;
             fast = fast.next.next;
         }
-        return slow;
+        console.log("Middle Value : ", slow.data);
+        return slow
     }
 
     mergeSort(head) {
@@ -42,20 +43,22 @@ class LinkedList {
         }
 
         let middle = this.getMiddle(head);
-        let nextOfMiddle = middle.next;
-        middle.next = null;
+        let nextOfMiddle = middle.next; //1
+        middle.next = null; 
 
         console.log("Splitting list:");
-        this.printList(head); // Print the first half
-        this.printList(nextOfMiddle); // Print the second half
+        this.printList(head); 
+        console.log('_________________');
+        this.printList(nextOfMiddle);
 
         let left = this.mergeSort(head);
         let right = this.mergeSort(nextOfMiddle);
 
         console.log("Merging sorted halves:");
-        this.printList(left); // Print the sorted left half
-        this.printList(right); // Print the sorted right half
-
+        this.printList(left);
+        this.printList(right);
+        console.log("Left data : ", left.data);
+        console.log("Right data : ", right.data);
         return this.sortedMerge(left, right);
     }
 
@@ -73,13 +76,23 @@ class LinkedList {
         if (left.data <= right.data) {
             result = left;
             console.log("Left value less or equal. Adding left:", left.data);
+            if (left.next) {
+                console.log("left.next : ");
+                this.printList(left.next.data);
+            }
             result.next = this.sortedMerge(left.next, right);
         } else {
             result = right;
             console.log("Right value less. Adding right:", right.data);
+            if (right.next) {
+                console.log("right.next : ");
+                this.printList(right.next.data);
+            }
+            console.log("result : ", result);
             result.next = this.sortedMerge(left, right.next);
-        }
-
+            
+        }  
+        console.log(result);
         return result;
     }
 

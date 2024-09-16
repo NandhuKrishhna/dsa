@@ -1,89 +1,93 @@
-class Node{
-    constructor(data){
+class Node {
+    constructor(data) {
         this.data = data;
         this.next = null;
     }
 }
 
-class LinkedList{
-    constructor(){
+class LinkedList {
+    constructor() {
         this.head = null;
     }
-    
-    addAtBegining(data){
-        const newNode =new Node(data)
-        newNode.next = this.head;
-        this.head = newNode
-    }
 
-    addAtEnd(data){
+    addlist(data) {
         const newNode = new Node(data);
-        if(!this.head){
-            this.head = newNode 
-            return
+        if (!this.head) {
+            this.head = newNode;
+            return;
         }
         let current = this.head;
-        while(current.next){
-            current  = current.next;
+        while (current.next) {
+            current = current.next;
         }
         current.next = newNode;
     }
-    size(){
-        let count = 0;
-        let current = this.head
-        while(current){
-            count++;
-            current = current.next
+
+    getMiddle(head = this.head) {
+        let slow = head;
+        let fast = head;
+
+        while (fast && fast.next && fast.next.next) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        return count
+        return slow;
     }
 
-    addAtIndex(index,data){
-        const newNode = new Node(data)
-        if(index < 0 || index > this.size()){
-            return console.error("Invalid Index");
-            
-        }
-        if(index === 0 ){
-            newNode.next = this.head;
-            this.head = newNode
+    splitListFunc(head = this.head) {
+        if (!head || !head.next) {
+            return head;
         }
 
-        let current = this.head;
-        for( let i = 0 ; i < index-1 ; i ++){
-            current = current.next;
-            
-        }
-        newNode.next = current.next;
-        current.next = newNode
-    }
-    
+        let middle = this.getMiddle(head);
+        let nextMiddle = middle.next;
+        middle.next = null; 
 
-    removeFromStart(){
-        if(!this.head) return null;
-        this.head = this.head.next
-    }
-    removeFromEnd(){
-        let current = this.head;
-        while(current.next.next){
-            current = current.next
-        }
-        current.next  = null;
+        let left = this.splitListFunc(head);
+        let right = this.splitListFunc(nextMiddle);
+
+
+        return this.sortLinkedlist(left, right);
     }
 
-     removeFromIndex(index){
-        if(index < 0 ||  index > this.size()){
-            return console.error("Invalid Error");
-            
-        }
-        if(index === 0 ){
-            this.head = this.head.next
-        }
+    sortLinkedlist(left, right) {
+        if (!left) return right;
+        if (!right) return left;
 
-        let current = this.head;
-        for(let i = 0 ; i < index - 1 ; i++){
+        let result = null;
+        if (left.data <= right.data) {
+            result = left;
+            result.next = this.sortLinkedlist(left.next, right);
+        } else {
+            result = right;
+            result.next = this.sortLinkedlist(left, right.next);
+        }
+        return result;
+    }
+
+    printlist(node = this.head) {
+        let current = node;
+        let result = [];
+        while (current) {
+            result.push(current.data);
             current = current.next;
         }
-        current.next
-     }
+        console.log(result.join(" -> "));
+    }
 }
+
+const list = new LinkedList();
+list.addlist(4);
+list.addlist(5);
+list.addlist(2);
+list.addlist(1);
+list.addlist(7);
+list.addlist(9);
+
+console.log("Original list:");
+list.printlist();
+
+list.head = list.splitListFunc();
+
+console.log("Sorted list:");
+list.printlist();
