@@ -46,16 +46,18 @@ class LinkedList {
       }
     }
     printList() {
+        let result = [];
         let current = this.head;
         while (current) {
-            console.log(current.data);
+            result.push(current.data)
             current = current.next;
         }
+        console.log(result.join("->"));
     }
 }
 
 const list = new LinkedList()
 list.convertArrayToLinkedList(arr)
-list.convertArraytoLinked1(nums)
+// list.convertArraytoLinked1(nums)
 // console.log(list);
 list.printList()

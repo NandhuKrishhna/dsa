@@ -69,15 +69,15 @@ class LinkedList{
 
 const list2= new LinkedList();
 const list1 = new LinkedList()
-list1.addData(5)
-list1.addData(6)
 list1.addData(7)
-list1.addData(8)
+list1.addData(6)
+list1.addData(2)
 list1.addData(9)
+list1.addData(3)
+list2.addData(8);
+list2.addData(6);
+list2.addData(5);
 list2.addData(1);
-list2.addData(2);
-list2.addData(3);
-list2.addData(4);
 list2.printList()
 list1.printList()
 const mergedList = new LinkedList()

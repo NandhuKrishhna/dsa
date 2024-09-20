@@ -1,7 +1,6 @@
 const linerSearch = function(nums,val){
     let n = nums.length;
     for( let i = 0 ; i < n  ; i++){
-        console.log('nums[i] : ',nums[i],'val :',val);
         if(nums[i] === val){
             return i; 
         }

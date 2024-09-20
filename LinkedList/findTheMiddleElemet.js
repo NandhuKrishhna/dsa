@@ -18,10 +18,10 @@ class LinkedList{
     }
     findtheMid(){
         let a = this.head;
-        let b = this.head;
+        let b = this.head.next;
         if(!this.head) return null;
 
-        while(a && b.next){
+        while(b && b.next){
             a = a.next;
             b = b.next.next;
         }
@@ -38,6 +38,7 @@ list.addList(33);
 list.addList(34);
 list.addList(36);
 list.addList(36);
-console.log(list.findtheMid());
+const result = list.findtheMid()
+console.log(result);
 //----------------------------------------------------
 

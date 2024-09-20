@@ -1,127 +1,17 @@
-// Implement a Singly Linked List: Create a basic linked list with methods to add, remove, and display elements.
+function reverseStrings(arr) {
+    let result = [];
 
-
-class Node{
-    constructor(data){
-        this.data = data;
-        this.next = null;
+    for (let i = 0; i < arr.length; i++) {
+        let reversedString = '';
+        for (let j = arr[i].length - 1; j >= 0; j--) {
+            reversedString += arr[i][j]; // Reverse each string
+        }
+        result.push(reversedString); // Push reversed string into result
     }
+
+    return result;
 }
 
-class LinkedList{
-    constructor(){
-        this.head = null;
-    }
-    //add at start
-    addList(data){
-        const newNode = new Node(data);
-        newNode.next = this.head;
-        this.head = newNode
-    }
-    //add at end
-    addListAtEnd(data){
-        const newNode = new Node(data);
-        if(!this.head){
-            this.head = newNode
-            return;
-        }
-        let current = this.head;
-        while(current.next){
-            current = current.next;
-        }
-        current.next = newNode;
-    }
-
-    size(){
-        let current = this.data;
-        let count = 0;
-        while (current){
-            count++;
-            current = current.next
-        }
-    }
-
-
-
-    //add at any index
-    addAtAny(index,data){
-       const newNode = new Node(data)
-      if(index<0 || index>this.size()){
-        return console.error("Invalid Index");
-        
-      }
-
-      if(index === 0 ){
-       newNode.next = this.head;
-       this.head = newNode
-       return
-      }
-
-     let current = this.head;
-     for (let i = 0; i < index-1; i++) {
-          current = current.next
-     }
-     newNode.next = current.next;
-     current.next = newNode;
-     
-
-    }
-   //Removing
-    removeFromStart(){
-        if(!this.head){
-            return console.error("Nothing to remove");
-            
-        }
-        this.head = this.head.next;
-
-    }
-    removeFromEnd(){
-        if (!this.head) {
-            return;
-          }
-
-          let current = this.head;
-          while(current.next.next){
-            current = current.next;
-          }
-          current.next = null;
-    }
-   removeFromIndex(index){
-    if(index<0 || index>this.size()){
-      return console.error("Invalid Index");
-      
-    }
-
-    if(index === 0 ){
-    this.head = this.head.next;
-    }
-
-   let current = this.head;
-   for (let i = 0; i < index-1; i++) {
-        current = current.next
-   }
-    current.next = current.next.next
-   }
-    //printing the values
-  printList(){
-    let current = this.head;
-    while(current){
-        console.log(current.data);
-        current = current.next
-    }
-  }
-
-}
-
-
-const list = new LinkedList();
-list.addList(11);
-list.addList(45);
-list.addListAtEnd(99)
-list.addList(66);
-list.addList(77);
-list.addAtAny(2,18)
-list.removeFromStart()
-list.removeFromEnd()
-list.removeFromIndex(0)
-list.printList()
+// Example usage:
+const input = ['ab', 'cd'];
+console.log(reverseStrings(input)); // Output: ['ba', 'dc']
