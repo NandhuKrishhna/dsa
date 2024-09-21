@@ -20,7 +20,8 @@ function binarySearch(arr, target) {
   }
   
   const sortedArray = [2, 5, 8, 12, 16, 23, 38, 45, 56, 72];
-  const target = 23;
+  const target = 56;
   const result = binarySearch(sortedArray, target);
   
   console.log(result);
+
