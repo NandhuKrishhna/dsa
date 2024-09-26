@@ -1,38 +1,39 @@
 class Queue{
     constructor(){
-         this.items = [];
+        this.items =[];
     }
 
-    enqueue(elem){
-        this.items.push(elem);
+    enqueue(element){
+        this.items.push(element)
     }
     dequeue(){
-        if(this.isEmpty()) return "Undeflow, cannot perform dequeue"
-        return this.items.shift();
-
+        return this.items.shift()
     }
+
     isEmpty(){
-       return this.items.length === 0 ;
+        return this.items.length === 0
     }
 
     peek(){
-                if(this.isEmpty()) return "Queue is empty";
-                return this.items[0];
-            }
-            print(){
         if(this.isEmpty()){
-            console.log("Queue is Empty");
-        }else{
-            console.log(this.items.join(", "));
+            return null;
         }
-        
+        return this.items[0]
+    }
+    size(){
+        return this.items.length;
+    }
+
+    print(){
+        console.log(this.items.toString());
     }
 }
+
 const queue = new Queue()
-queue.enqueue(1)
-queue.enqueue(2)
-queue.enqueue(3)
-queue.enqueue(4)
+console.log(queue.isEmpty());
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(30)
 queue.print()
 queue.dequeue()
 queue.print()
