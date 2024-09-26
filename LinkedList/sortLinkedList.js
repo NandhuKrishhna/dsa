@@ -1,123 +1,97 @@
 class Node {
     constructor(data) {
-        this.data = data;
-        this.next = null;
+      this.data = data;
+      this.next = null;
     }
-}
-
-class LinkedList {
+  }
+  
+  class LinkedList {
     constructor() {
-        this.head = null;
+      this.head = null;
     }
-
-    addlist(data) {
-        const newNode = new Node(data);
-        if (!this.head) {
-            this.head = newNode;
-            return;
-        } else {
-            let current = this.head;
-            while (current.next) {
-                current = current.next;
-            }
-            current.next = newNode;
+  
+    addData(data) {
+      let newNode = new Node(data);
+      if (!this.head) {
+        this.head = newNode;
+      } else {
+        let current = this.head;
+        while (current.next) {
+          current = current.next;
         }
+        current.next = newNode;
+      }
     }
-
+  
+    printList() {
+      let current = this.head;
+      let result = [];
+      while (current) {
+        result.push(current.data);
+        current = current.next;
+      }
+      console.log(result.join(" -> "));
+    }
+  
     getMiddle(head) {
-        if (!head) return head;
-        let slow = head;
-        let fast = head.next;
-        while (fast && fast.next) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        console.log("Middle Value : ", slow.data);
-        return slow
+      if (!head || !head.next) return head;
+  
+      let slow = head;
+      let fast = head;
+  
+      while (fast.next && fast.next.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+      }
+      return slow;
     }
+  
+    sortLinkedList(head) {
+      // Base case: if the list is empty or has only one element, it's already sorted
+      if (!head || !head.next) return head;
+  
+      // Get the middle of the list and split it
+      let middle = this.getMiddle(head);
+      let nextMiddle = middle.next;
+      middle.next = null; // Split the list into two halves
 
-    mergeSort(head) {
-        if (!head || !head.next) {
-            console.log("Base case reached with head:", head ? head.data : null);
-            return head;
-        }
-
-        let middle = this.getMiddle(head);
-        let nextOfMiddle = middle.next; //1
-        middle.next = null; 
-
-        console.log("Splitting list:");
-        this.printList(head); 
-        console.log('_________________');
-        this.printList(nextOfMiddle);
-
-        let left = this.mergeSort(head);
-        let right = this.mergeSort(nextOfMiddle);
-
-        console.log("Merging sorted halves:");
-        this.printList(left);
-        this.printList(right);
-        console.log("Left data : ", left.data);
-        console.log("Right data : ", right.data);
-        return this.sortedMerge(left, right);
+      let left = this.sortLinkedList(head);
+      let right = this.sortLinkedList(nextMiddle);
+  
+      // Merge the sorted halves
+      return this.merge(left, right);
     }
-
-    sortedMerge(left, right) {
-        if (!left) {
-            console.log("Left is null, returning right:", right ? right.data : null);
-            return right;
-        }
-        if (!right) {
-            console.log("Right is null, returning left:", left ? left.data : null);
-            return left;
-        }
-
-        let result = null;
-        if (left.data <= right.data) {
-            result = left;
-            console.log("Left value less or equal. Adding left:", left.data);
-            if (left.next) {
-                console.log("left.next : ");
-                this.printList(left.next.data);
-            }
-            result.next = this.sortedMerge(left.next, right);
-        } else {
-            result = right;
-            console.log("Right value less. Adding right:", right.data);
-            if (right.next) {
-                console.log("right.next : ");
-                this.printList(right.next.data);
-            }
-            console.log("result : ", result);
-            result.next = this.sortedMerge(left, right.next);
-            
-        }  
-        console.log(result);
-        return result;
+  
+    merge(left, right) {
+      if (!left) return right;
+      if (!right) return left;
+  
+      let result;
+  
+      if (left.data <= right.data) {
+        result = left;
+        result.next = this.merge(left.next, right);
+      } else {
+        result = right;
+        result.next = this.merge(left, right.next);
+      }
+  
+      return result;
     }
-
-    printList(node) {
-        let result = [];
-        while (node) {
-            result.push(node.data);
-            node = node.next;
-        }
-        console.log(result.join(' -> '));
-    }
-}
-
-const list = new LinkedList();
-list.addlist(4);
-list.addlist(2);
-list.addlist(1);
-list.addlist(3);
-
-console.log("Original list:");
-list.printList(list.head);
-
-console.log("-------------");
-console.log("Starting merge sort:");
-list.head = list.mergeSort(list.head);
-
-console.log("Sorted list:");
-list.printList(list.head);
+  }
+  
+  // Example usage
+  let list = new LinkedList();
+  list.addData(3);
+  list.addData(1);
+  list.addData(5);
+  list.addData(2);
+  list.addData(4);
+  
+  console.log("Original list:");
+  list.printList();
+  
+  console.log("Sorted list:");
+  list.head = list.sortLinkedList(list.head);
+  list.printList();
+  
