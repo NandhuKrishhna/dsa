@@ -1,18 +1,28 @@
-function quickSort(arr){
-    if(arr.length <= 1) return arr;
-    const pivot = arr[arr.length - 1]
+function quickSortByAge(arr) {
+    if (arr.length <= 1) return arr;
+
+    const pivot = arr[arr.length - 1]; // Use the last element as the pivot
     const left = [];
-    const right =[];
-    
-    for(let i = 0 ; i < arr.length - 1 ; i++){
-        if(arr[i]<pivot){
-            left.push(arr[i])
-        }else{
-            right.push(arr[i])
+    const right = [];
+
+    // Compare by 'age' property
+    for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i].age < pivot.age) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
         }
     }
-     return [...quickSort(left),pivot,...quickSort(right)]
+
+    // Recursively sort left and right arrays, and return the sorted array
+    return [...quickSortByAge(left), pivot, ...quickSortByAge(right)];
 }
-const arr = [4, 2, 7, 1, 3, 6, 5];
-const result = quickSort(arr);
-console.log(result);
+
+const persons = [
+    { name: "Alice", age: 34 }, 
+    { name: "Bob", age: 25 }, 
+    { name: "Charlie", age: 28 }
+];
+
+const sortedPersons = quickSortByAge(persons);
+console.log("Sorted Persons by Age:", sortedPersons);

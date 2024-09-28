@@ -37,3 +37,4 @@ queue.enqueue(30)
 queue.print()
 queue.dequeue()
 queue.print()
+console.log(queue.peek());

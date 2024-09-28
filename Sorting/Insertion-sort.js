@@ -1,18 +1,25 @@
- function insertionSort(arr){
-    let n = arr.length;
+function insertionSort(arr) {
+  let n = arr.length;
 
-    for(let i = 1 ; i < n ; i++){
+  for (let i = 1; i < n; i++) {
       let key = arr[i];
       let j = i - 1;
 
-      while(j>=0 && arr[j]>key){
-        arr[j+1] = arr[j];
-        j= j-1
+      // Compare the start property of objects
+      while (j >= 0 && arr[j].start > key.start) {
+          arr[j + 1] = arr[j];
+          j = j - 1;
       }
-      arr[j+1]=key
-    }
-    return arr
- }
- const arr = [ 12, 11, 13, 5, 6 ];
- const result = insertionSort(arr);
- console.log(result);
+      arr[j + 1] = key;
+  }
+  return arr;
+}
+
+const events = [
+  { start: 14, end: 15 }, 
+  { start: 9, end: 10 }, 
+  { start: 11, end: 12 }
+];
+
+const result = insertionSort(events);
+console.log(result);
