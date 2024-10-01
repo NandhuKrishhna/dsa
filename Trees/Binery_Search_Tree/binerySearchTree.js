@@ -34,31 +34,55 @@ class BinerySearchTree {
       }
     }
   }
-  search(root, data){
-    if(!root){
-        return false
-    }else{
-      if(root.data === data){
-        return true
-      }else if(data < root.data){
-        return this.search(root.left,data)
-      }else{
-        return this.search(root.right,data)
+  search(root, data) {
+    if (!root) {
+      return false;
+    } else {
+      if (root.data === data) {
+        return true;
+      } else if (data < root.data) {
+        return this.search(root.left, data);
+      } else {
+        return this.search(root.right, data);
       }
     }
   }
+  preOrder(root) {
+    if (root) {
+      console.log(root.data);
+      this.preOrder(root.left);
+      this.preOrder(root.right);
+    }
+  }
+  inOrder(root){
+    if(root){
+      this.inOrder(root.left)
+      console.log(root.data);
+      this.inOrder(root.right)
+    }
+  }
+  postOrder(root){
+    if(root){
+        this.postOrder(root.left)
+        this.postOrder(root.right)
+        console.log(root.data);
+    }
 
+  }
   isEmpty() {
     return this.root === null;
   }
-
 }
-const bst =  new BinerySearchTree()
-bst.insert(34)
-bst.insert(10)
-bst.insert(14)
-bst.insert(56)
-console.log(bst.search(bst.root,34));
-console.log(bst.search(bst.root,10));
-console.log(bst.search(bst.root,14));
-console.log(bst.search(bst.root,50));
+const bst = new BinerySearchTree();
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(7);
+bst.insert(3);
+console.log(bst.search(bst.root, 10));
+console.log(bst.search(bst.root, 5));
+console.log(bst.search(bst.root, 15));
+console.log(bst.search(bst.root, 7));
+console.log(bst.search(bst.root, 3));
+bst.postOrder(bst.root);
+
