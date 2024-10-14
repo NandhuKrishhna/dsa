@@ -45,11 +45,20 @@ class MinHeap{
         }
 
     }
-
+    remove() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        const min = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.check(0);
+        return min;
+      }
 }
 
 const min_heap = new MinHeap()
 min_heap.buildHeap([4,10,3,5,1,6,9])
 console.log(min_heap.heap);
 min_heap.insert(2)
+console.log(min_heap.heap);
+min_heap.remove()
 console.log(min_heap.heap);

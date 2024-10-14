@@ -50,16 +50,33 @@ class BinerySearchTree {
       }
     }
   }
+   deleteNode(root, data) {
+    if (root === null) {
+      return null;
+    }
+
+
+    if (data < root.data) {
+      root.left = this.deleteNode(root.left, data);
+    } else if (data > root.data) {
+      root.right = this.deleteNode(root.right, data);
+    } else {
+      if (!root.left && !root.right) {
+        return null;
+      }
+      if (!root.left) {
+        return root.right;
+      } else if (!root.right) {
+        return root.left;
+      }
+      root.data = this.min(root.right);
+      root.right = this.deleteNode(root.right, root.data);
+    }
+    return root;
+  }
 }
 
 const result = new BinerySearchTree();
 console.log(result.isEmpty());
 result.insert(10);
-result.insert(5);
-result.insert(6);
-result.insert(7);
-result.insert(11);
 console.log(result.search(result.root, 10));
-console.log(result.search(result.root, 5));
-console.log(result.search(result.root, 6));
-console.log(result.search(result.root, 100));

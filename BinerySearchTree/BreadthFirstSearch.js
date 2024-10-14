@@ -94,17 +94,59 @@ class Binery {
   if(current.right) return this.min(current.right)
     return parent.data
  }
+ deleteNode(root, data) {
+  if (root === null) {
+    return null;
+  }
+  if (data < root.data) {
+    root.left = this.deleteNode(root.left, data);
+  } else if (data > root.data) {
+    root.right = this.deleteNode(root.right, data);
+  } else {
+    if (!root.left && !root.right) {
+      return null;
+    }
+    if (!root.left) {
+      return root.right;
+    } else if (!root.right) {
+      return root.left;
+    }
+    root.data = this.min(root.right);
+    root.right = this.deleteNode(root.right, root.data);
+  }
+  return root;
+}
+preOrder(root){
+  if(root){
+      console.log(root.data);
+      this.preOrder(root.left)
+      this.preOrder(root.right)
+  }
+}
+inOrder(root){
+  if(root){
+      this.inOrder(root.left)
+      console.log(root.data);
+      this.inOrder(root.right)
+  }
+}
+postOrder(root){
+  if(root){
+      this.postOrder(root.left)
+      this.postOrder(root.right)
+      console.log(root.data);
+  }
+}
 }
 
 
 const res = new Binery();
 res.insert(10);
-res.insert(5);
-res.insert(3);
-res.insert(7);
-res.insert(15);
+res.insert(11);
+res.insert(32);
+res.insert(40);
+res.insert(50);
 console.log(res.isEmpty());
-console.log("--------");
 console.log(res.search(res.root, 10));
 console.log(res.search(res.root, 1));
 res.levelOrder();
