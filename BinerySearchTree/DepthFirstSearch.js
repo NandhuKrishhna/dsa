@@ -49,6 +49,31 @@ class Binery{
     isEmpty() {
         return this.root === null;
       }
+      deleteNode(root, data) {
+        if (root === null) {
+          return null;
+        }
+    
+    
+        if (data < root.data) {
+          root.left = this.deleteNode(root.left, data);
+        } else if (data > root.data) {
+          root.right = this.deleteNode(root.right, data);
+        } else {
+          if (!root.left && !root.right) {
+            return null;
+          }
+          if (!root.left) {
+            return root.right;
+          } else if (!root.right) {
+            return root.left;
+          }
+          root.data = this.min(root.right);
+          root.right = this.deleteNode(root.right, root.data);
+        }
+        return root;
+      }
+
       preOrder(root){
         if(root){
             console.log(root.data);
@@ -85,4 +110,8 @@ console.log(result.search(result.root, 100));
 result.preOrder(result.root)
 console.log("--------------");
 result.inOrder(result.root)
+console.log("--------------");
+result.postOrder(result.root)
+result.deleteNode(result.root, 15)
+console.log("--------------");
 result.postOrder(result.root)

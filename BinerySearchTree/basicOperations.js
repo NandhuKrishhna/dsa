@@ -79,4 +79,8 @@ class BinerySearchTree {
 const result = new BinerySearchTree();
 console.log(result.isEmpty());
 result.insert(10);
+result.insert(23);
+result.insert(55);
+result.insert(87);
+result.insert(1);
 console.log(result.search(result.root, 10));

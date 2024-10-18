@@ -53,6 +53,14 @@ class MinHeap{
         this.check(0);
         return min;
       }
+
+      secMin(){
+        let i = 0;
+        let leftIndx = 2 * i + 1;
+        let rightIndx = 2 * i + 2;
+        if(this.heap[leftIndx]<this.heap[rightIndx]) return this.heap[leftIndx];
+        else return this.heap[rightIndx]
+      }
 }
 
 const min_heap = new MinHeap()
@@ -62,3 +70,4 @@ min_heap.insert(2)
 console.log(min_heap.heap);
 min_heap.remove()
 console.log(min_heap.heap);
+console.log(min_heap.secMin());
