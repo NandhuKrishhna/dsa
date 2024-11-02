@@ -110,7 +110,7 @@ console.log("Search for 'cat':", trie.search("cat")); // false
 
 console.log("Auto-complete 'ap':", trie.autoComplete("ap")); // ['apple', 'app', 'apricot']
 console.log("Auto-complete 'ba':", trie.autoComplete("ba")); // ['banana', 'bat', 'ball']
-
+console.log("Print all words:", trie.printAllWords());
 trie.delete("bat");
 console.log("Search for 'bat' after deletion:", trie.search("bat")); // false
 

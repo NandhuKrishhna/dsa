@@ -1,16 +1,24 @@
-function findMin(arr){
-    let left = 0;
-    let right = arr.length-1;
+function findSecondLargest(arr) {
+    if (arr.length < 2) {
+        return "Array must have at least two elements";
+    }
 
-    while(left < right){
-        let sum = left + right
-        let mid = Math.floor(sum/2);
-        if(arr[mid]>arr[right]){
-            left = mid+1
-        }else{
-            right = mid;
+    let largest = -Infinity;
+    let secondLargest = -Infinity;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > largest) {
+            secondLargest = largest;  // Update second largest
+            largest = arr[i];         // Update largest
+        } else if (arr[i] > secondLargest && arr[i] !== largest) {
+            secondLargest = arr[i]; 
         }
     }
-    return arr[left]
+
+    return secondLargest === -Infinity ? "No second largest element" : secondLargest;
 }
-console.log(findMin([4,5,6,7,0,1,2,3]));
+
+// Example usage
+let arr = [3, 5, 7, 1, 8, 4, 9];
+let secondLargest = findSecondLargest(arr);
+console.log("The second largest element is:", secondLargest);

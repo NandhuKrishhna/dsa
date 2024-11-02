@@ -1,124 +1,124 @@
 class TrieNode {
-    constructor() {
-        this.children = {}; // Store children nodes
-        this.isEndOfWord = false; // Check if it's the end of a word
-    }
+  constructor() {
+    this.children = {};
+    this.isEndOfWord = false;
+  }
 }
 
 class Trie {
-    constructor() {
-        this.root = new TrieNode();
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word) {
+    let node = this.root;
+    for (let char of word) {
+      if (!node.children[char]) {
+        node.children[char] = new TrieNode();
+      }
+      node = node.children[char];
     }
-
-    // Insert a word into the Trie
-    insert(word) {
-        let node = this.root;
-        console.log(`Inserting: ${word}`);
-        for (let char of word) {
-            if (!node.children[char]) {
-                node.children[char] = new TrieNode();
-                console.log(`Creating node for '${char}'`);
-            }
-            node = node.children[char];
-        }
-        node.isEndOfWord = true;
-        console.log(`'${word}' inserted successfully.\n`);
-    }
-
-    // Search for a word in the Trie
-    search(word) {
-        let node = this.root;
-        console.log(`Searching: ${word}`);
-        for (let char of word) {
-            if (!node.children[char]) {
-                console.log(`'${word}' not found!`);
-                return false;
-            }
-            node = node.children[char];
-        }
-        console.log(`'${word}' ${node.isEndOfWord ? "found!" : "not found as a complete word!"}`);
-        return node.isEndOfWord;
-    }
-
-    // Delete a word from the Trie
-    delete(word) {
-        console.log(`Deleting: ${word}`);
-        if (this._deleteHelper(this.root, word, 0)) {
-            console.log(`'${word}' deleted successfully.\n`);
-        } else {
-            console.log(`'${word}' not found in Trie.\n`);
-        }
-    }
-
-    _deleteHelper(node, word, index) {
-        if (index === word.length) {
-            if (!node.isEndOfWord) return false; // Word not found
-            node.isEndOfWord = false;
-            return Object.keys(node.children).length === 0; // If no children, delete the node
-        }
-        const char = word[index];
-        if (!node.children[char]) return false; // Word not found
-
-        const shouldDeleteChild = this._deleteHelper(node.children[char], word, index + 1);
-
-        if (shouldDeleteChild) {
-            delete node.children[char]; // Delete the reference to child node
-            return Object.keys(node.children).length === 0;
-        }
+    node.isEndOfWord = true;
+  }
+  search(word) {
+    let node = this.root;
+    for (let char of word) {
+      if (!node.children[char]) {
         return false;
+      }
+      node = node.children[char];
+    }
+    return node.isEndOfWord;
+  }
+  startWith(prefix) {
+    let node = this.root;
+    for (let char of prefix) {
+      if (!node.children[char]) {
+        return false;
+      }
+      node = node.children[char];
+    }
+    return true;
+  }
+
+  deleteWord(node, word, depth = 0) {
+    if (!node) return false;
+
+    console.log(`Visiting node for character: ${word[depth - 1] || 'root'}, depth: ${depth}`);
+
+    // Base case: We've reached the end of the word
+    if (depth === word.length) {
+      if (!node.isEndOfWord) {
+        console.log(`Word "${word}" not found at the end`);
+        return false; // The word is not actually in the Trie
+      }
+
+      // Unmark the end of the word
+      node.isEndOfWord = false;
+      console.log(`Unmarking end of word for "${word}"`);
+
+      // If the node has no children, it can be deleted
+      return Object.keys(node.children).length === 0;
     }
 
-    // Autocomplete suggestions based on prefix
-    autocomplete(prefix) {
-        let node = this.root;
-        console.log(`Finding completions for prefix: '${prefix}'`);
-        for (let char of prefix) {
-            if (!node.children[char]) {
-                console.log(`No words found with prefix: '${prefix}'`);
-                return [];
-            }
-            node = node.children[char];
-        }
-        const suggestions = [];
-        this._findAllWords(node, prefix, suggestions);
-        console.log(`Suggestions for '${prefix}':`, suggestions, '\n');
-        return suggestions;
+    const char = word[depth];
+    console.log(`Traversing character: "${char}"`);
+
+    // Recursively delete from the children
+    if (!this.deleteWord(node.children[char], word, depth + 1)) {
+      console.log(`No deletion needed for character: "${char}"`);
+      return false;
     }
 
-    _findAllWords(node, prefix, suggestions) {
-        if (node.isEndOfWord) suggestions.push(prefix);
-        for (let char in node.children) {
-            this._findAllWords(node.children[char], prefix + char, suggestions);
+    // Delete the current node's reference to this child
+    console.log(`Deleting node for character: "${char}"`);
+    delete node.children[char];
+
+    // If the current node has no children and is not the end of another word, it can be deleted
+    const shouldDeleteCurrentNode = Object.keys(node.children).length === 0 && !node.isEndOfWord;
+    console.log(`Should delete current node for character: "${char}"? ${shouldDeleteCurrentNode}`);
+
+    return shouldDeleteCurrentNode;
+  }
+
+  // Delete a word from the Trie
+  delete(word) {
+    console.log(`Starting to delete word: "${word}"`);
+    this.deleteWord(this.root, word);
+    console.log(`Finished deleting word: "${word}"\n`);
+  }
+  autocomplete(prefix){
+    let node = this.root;
+    for(let char of prefix){
+        if(!node.children[char]){
+            return [];
         }
+        node = node.children[char];
     }
-    printAllWords() {
-        console.log("All words in the Trie:");
-        const words = [];
-        this._findAllWords(this.root, "", words);
-        console.log(words);
-        return words;
+    let result = [];
+    this.getWords(node, prefix, result)
+    return result
+  }
+  getWords(node, prefix, result){
+    if(node.isEndOfWord){
+        result.push(prefix)
     }
+    for(let char in node.children){
+        this.getWords(node.children[char], prefix + char , result)
+    }
+  }
 }
 
-// Example usage
+
 const trie = new Trie();
-
 trie.insert("apple");
-trie.insert("app");
-trie.insert("ape");
-trie.insert("bat");
-trie.insert("ball");
+trie.insert("ap");
+
+trie.insert("grapes");
 trie.insert("banana");
-
-trie.search("app");   // Found
-trie.search("bat");   // Found
-trie.search("cat");   // Not found
-
-trie.autocomplete("ap"); // ["app", "apple", "ape"]
-trie.autocomplete("ba"); // ["bat", "ball", "banana"]
-
-trie.delete("bat");   // Delete "bat"
-trie.search("bat");   // Not found after deletion
-
-trie.autocomplete("ba"); // ["ball", "banana"]
-trie.printAllWords(); 
+console.log("Searching for apple : ", trie.search("apple"));
+console.log("Searching for orange : ", trie.search("orange"));
+console.log(trie.startWith("wapp"));
+trie.delete('apple')
+console.log(trie.search('banana'));
+console.log(trie.autocomplete('ba'));

@@ -40,11 +40,11 @@ class LinkedList{
 }
 
 let list =new LinkedList()
-list.addList(36)
-list.addList(25)
-list.addList(24)
-list.addList(23)
-list.addList(22)
+list.addList(1)
+list.addList(2)
+list.addList(3)
+list.addList(4)
+list.addList(5)
 list.printList()
 console.log('-----------------');
 list.reverseList()
