@@ -1,4 +1,4 @@
-export class Node {
+class Node {
     constructor(data) {
         this.data = data;
         this.next = null
@@ -165,6 +165,22 @@ class LinkedList {
         }
         this.head = prev
     }
+
+
+    removeFromTheNthPosition(n) {
+        let length = 1;
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+            length++
+        }
+        console.log("Length of the LL : ", length);
+        current = this.head;
+        for (let i = 0; i < length - n + 1; i++) {
+
+        }
+    }
+
 }
 
 
@@ -191,3 +207,4 @@ list.deletePosition(2)
 list.printList()
 list.reverse();
 list.printList()
+list.removeFromTheNthPosition(8)
